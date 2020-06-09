@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo installiation begin for serverless globally in image..
+      - npm install -g serverless
+  pre_build:
+    commands:
+      - echo installing required dependencies..
+      - npm install
+  build:
+    commands:
+      - echo deploying to aws using sls on `date`..
+      - sls deploy -v -s $ENV_NAME
+  post_build:
+    commands:
+      - echo deployed successfully `date`
+  
