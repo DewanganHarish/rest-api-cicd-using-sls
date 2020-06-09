@@ -6,4 +6,26 @@
 6) under the resources section we write Resources and RAW cloudFormation template goes here
 7) created table name by concatinating <service>-<stage>-table under Resources section with the type AWS::DynamoDB::table
 8) Defined all  its properties (TableName: same as in environment variable) along with Global Secondary Indexs
-9) 
+9) Initialise git using:- git init
+10) create two branch master and dev:- git checkout -b master/dev
+11) add remote repository to this local git:- git remote add origin <origin-url>
+12) push changes to remote dev/master branch after commit
+13) create Pipeline in AWS
+13a) Enter Pipeline name and select New Service role so that aws create and assign necessary permission to our role.
+13b) Use default Artifact store and Encryption key
+13c) Add Source Stage here its Github and specify repository along with master branch and use github webhooks
+13d) Add Build Stage here specify Build provider as AWS CodeBuild and create new project in codeBuild
+13e) In Build Stage select Managed image -> Amazon linux 2 -> Standard -> Select 1st Image -> Image version (always use latest image)
+13f) Select existing service role in AWS CodeBuild environment stage and create role with aws services as AWS CodeBuild and permission as Administrator access.
+13g) Specify buildspec.yaml and couldWatch logs in AWS CodeBuild
+13h) Add environment variable as ENV_NAME and its value as dev in AWS codeBuild environment stage
+13i) Skip Deploy stage as our deployment is done by serverless framework in Build stage only.
+13j) Review and create Pipeline
+14) Include buildspec.yaml file in project root directory
+15) specify atleast version and phases in buildspec.yaml
+16) 4 phases in buildspec.yaml file are install, pre_build, build, post_build along with its set of commands
+17) Now if changes push to master branch of this repository it triggers build.
+18) created 4-5 api to be deployed and specify them under functions along with all its properties.
+19) to check the API gateway-lambda integration locally we use serverless-offline plugin
+20) serverless-offline plugin :- npm install serverless-offline --save-dev
+21) To test locally cmd:- sls offline

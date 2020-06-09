@@ -13,5 +13,8 @@
     "aws-sdk": "2.692.0",
     "moment": "2.26.0",
     "uuid": "8.1.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^6.4.0"
   }
 }

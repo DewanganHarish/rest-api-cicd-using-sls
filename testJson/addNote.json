@@ -1,0 +1,13 @@
+{
+    "body": { 
+        "Item": {
+            "title": "title1",
+            "content": "content1",
+            "category": "general"
+        }
+    }, 
+    "header": {
+        "user_id": "HTU94KO4Y48",
+        "user_name": "Lenove"
+    }
+}
