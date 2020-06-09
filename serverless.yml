@@ -1,0 +1,50 @@
+service: rest-api-cicd-using-sls
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stackName: ${self:service}-stack
+  apiName: ${self:service}-api
+  region: ${opt.region, 'ap-south-1'}
+  stage: ${opt.stage, 'dev'}
+  timeout: 5
+  memorySize: 128
+  endpointType: Edge
+  environment:
+    NOTES_TABLE:  ${self:service}-${self:provider.stage}-table
+
+functions:
+  hello:
+    handler: handler.hello
+
+resources:
+  Resources:
+    notesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.NOTES_TABLE}
+        AttributeDefinitions:
+          - AttributeName: user_id
+            AttributeType: S
+          - AttributeName: timestamp
+            AttributeType: N
+          - AttributeName: note_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: user_id
+            KeyType: HASH
+          - AttributeName: timestamp
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: note_id-index
+            KeySchema:
+              - AttributeName: note_id
+                KeyType: HASH
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+            Projection:
+              ProjectionType: ALL

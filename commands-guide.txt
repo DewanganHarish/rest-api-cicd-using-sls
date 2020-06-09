@@ -1,0 +1,9 @@
+1) install serverless globally
+2) node project:- npm init -y
+3) npm install aws-sdk moment uuid --save
+4) Store a dynamoDb table name in environment table
+5) update serverless.yaml file to create dynamoDb table
+6) under the resources section we write Resources and RAW cloudFormation template goes here
+7) created table name by concatinating <service>-<stage>-table under Resources section with the type AWS::DynamoDB::table
+8) Defined all  its properties (TableName: same as in environment variable) along with Global Secondary Indexs
+9) 
