@@ -9,6 +9,7 @@ const moment = require('moment');
 
 const tableName = process.env.NOTES_TABLE;
 const responseUtil = require('../utils/responseHeaders'); 
+const requestData = require('../utils/requestData');
 
 exports.handler = async event => {
     try {
@@ -22,7 +23,7 @@ exports.handler = async event => {
             Item: item,
             ConditionExpression: '#uid = :uId',
             ExpressionAttributeNames: {
-                '#uid' : 'timestamp'
+                '#uid' : 'user_id'
             },
             ExpressionAttributeValues: {
                 ':uId' : item.user_id
